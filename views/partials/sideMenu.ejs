@@ -5,10 +5,20 @@
     </div>
     <div class="sortingButton">
         <img src="/images/task_icon.svg" alt="Task Icon">
-        <p>All Tasks</p>
+        <p>All Lists</p>
     </div>
     <div class="sortingButton">
         <img src="/images/fav_icon.svg" alt="Fav Icon">
         <p>Favorites</p>
     </div>
+    <div class="divider"></div>
+    <div id="listsTitle">
+        <p>Lists</p>
+        <img src="/images/plus_icon.svg" alt="Plus Icon" id="plusIcon">
+    </div>
+    <ul>
+        <% lists.forEach(element => { %>
+            <li class="listItem"><p><%= element.name %></p></li>
+        <% }) %>
+    </ul>
 </div>

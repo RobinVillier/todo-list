@@ -1,0 +1,15 @@
+{
+    "favorites": [
+
+    ],
+    "lists": [
+        {
+            "name": "Default",
+            "tasks": []
+        },
+        {
+            "name": "Custom",
+            "tasks": []
+        }
+    ]
+}
