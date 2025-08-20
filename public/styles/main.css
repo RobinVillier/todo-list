@@ -1,0 +1,167 @@
+body {
+    /* background: linear-gradient(hsl(0, 0%, 35%) 70%, hsl(0, 0%, 25%));
+    background-attachment: fixed; */
+    background-color: hsl(0, 0%, 10%);
+
+    height: 100vh;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+
+    background-color: hsl(0, 0%, 15%);
+    padding: 0 1rem;
+    margin: 1rem 1rem 0 1rem;
+    border-radius: 25px;
+    min-width: 200px;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration:none;
+}
+
+#postIt {
+    width: 40px;
+}
+
+#title {
+    margin: 0;
+    color: white;
+}
+
+#hamburgerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+}
+
+#hamburger {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#hamburger:hover {
+    width: 50px;
+    height: 50px;
+    transition: 0.3s ease-in-out;
+}
+
+/* BODY */
+.bodyContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#sideMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 10px;
+
+    background: hsl(0, 0%, 15%);
+    color: #fff;
+
+    min-width: 200px;
+    height: fit-content;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 25px;
+    
+    position: fixed;
+    left: -250px;
+    top: 66px;
+    transition: left 0.3s ease;
+}
+
+#sideMenu.open {
+  left: 0;
+}
+
+.createButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 150px;
+    height: 60px;
+
+    background-color: hsl(0, 0%, 25%);
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.createButton:hover {
+    background-color: hsl(0, 0%, 30%);
+    cursor: pointer;
+}
+
+#plusIcon {
+    width: 40px;
+}
+
+.sortingButton {
+    display: flex;
+    flex-direction: row;
+    
+    background-color: hsl(0, 0%, 25%);
+    padding: 5px 10px;
+    border-radius: 25px;
+    width: 180px;
+}
+
+.sortingButton:hover {
+    background-color: hsl(0, 0%, 30%);
+    cursor: pointer;
+    color: #fff;
+}
+
+.active {
+    background-color: rgb(0, 74, 119);
+    color: rgb(167, 209, 236);
+}
+
+.active:hover {
+    background-color: rgb(18, 86, 128);
+    color: rgb(255, 255, 255);
+}
+
+.sortingButton > p {
+    margin: 0;
+    padding: 0;
+
+    font-size: 15px;
+    font-weight: 550;
+}
+
+.sortingButton > img {
+    margin-right: 10px;
+    width: 20px;
+}
+
+/* #lists {
+
+} */
