@@ -25,9 +25,6 @@ selectionButtons.forEach(btn => {
 
 // Toggle the color of selected lists when selected
 const listSelection = document.querySelectorAll('li[class="listItem"]');
-// if (listSelection.length > 0) {
-//     document.getElementsByClassName("listItem")[0].classList.add("active");
-// };
 
 listSelection.forEach(btn => {
     btn.addEventListener('click', function () {
