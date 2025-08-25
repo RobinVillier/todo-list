@@ -1,0 +1,18 @@
+{
+  "favorites": [],
+  "lists": [
+    {
+      "name": "Default",
+      "tasks": {}
+    },
+    {
+      "name": "Custom",
+      "tasks": {}
+    },
+    {
+      "name": "Work",
+      "tasks": {}
+    }
+  ],
+  "active": []
+}

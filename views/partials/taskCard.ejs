@@ -1,0 +1,11 @@
+<% lists.forEach(list => { %>
+    <div class="tasksContainer" id="<%= list.name %>Tasks" data-name="<%= list.name %>">
+        <div class="cardHeader">
+            <p><%= list.name %></p>
+        </div>
+        <button class="newTaskBtn" href="/newTask" data-name="<%= list.name %>">
+            <img src="/images/plus_icon.svg" alt="Plus Icon">
+            Add a new task
+        </button>
+    </div>
+<% }) %>

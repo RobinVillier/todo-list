@@ -1,0 +1,24 @@
+{
+  "favorites": [],
+  "lists": [
+    {
+      "name": "Default",
+      "tasks": [
+        {
+          "title": "Bonjour",
+          "description": "Finir taff",
+          "date": "2025-08-25T10:55:20.572Z"
+        }
+      ]
+    },
+    {
+      "name": "Custom",
+      "tasks": []
+    },
+    {
+      "name": "Work",
+      "tasks": []
+    }
+  ],
+  "active": []
+}

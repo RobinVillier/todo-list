@@ -1,0 +1,13 @@
+<div id="popup" class="bodyNewTaskPopUp">
+    <div id="newTaskCard">
+        <form id="newPostForm" method="post" action="/api/newTask">
+            <h1></h1>
+            <input type="hidden" name="container" id="taskContainer">
+
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="text" name="description" placeholder="Description" required>
+            <button type="submit">Create New Task</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+    </div>
+</div>
