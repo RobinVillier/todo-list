@@ -7,5 +7,14 @@
             <img src="/images/plus_icon.svg" alt="Plus Icon">
             Add a new task
         </button>
+        <% if (list.tasks) { 
+            list.tasks.forEach(task => { %>
+                <div class="taskDiv">
+                    <p><%= task.title %></p>
+                    <p><%= task.description %></p>
+                    <p><%= task.date %></p>
+                </div>
+            <% })
+        } %>
     </div>
 <% }) %>

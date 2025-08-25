@@ -10,14 +10,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-// lire les données depuis le JSON
+// Read data from a given json path
 function readData(path) {
     if (!fs.existsSync(path)) return [];
     const raw = fs.readFileSync(path, "utf8");
     return JSON.parse(raw);
 }
 
-// écrire les données dans le JSON
+// Write given data to a given json path
 function writeData(data, path) {
     fs.writeFileSync(path, JSON.stringify(data, null, 2));
 }
@@ -28,6 +28,7 @@ app.get("/getLists", (req, res) => {
     if (!settingsJson) {
         return res.status(500).json({ error: "Tasks not loaded yet" });
     }
+    
     res.json(settingsJson);
 });
 
@@ -41,7 +42,8 @@ app.post("/newTask", (req, res) => {
     list.tasks.push({
         "title": req.body.title,
         "description": req.body.description,
-        "date": new Date()
+        "date": new Date(),
+        "done": false
     });
     
     writeData(settingsJson, path)

@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
 app.post("/api/newTask", async (req, res) => {
     try {
         await axios.post(`${API_URL}/newTask`, req.body);
-        
+
         res.redirect("/");
     } catch (error) {
         res.status(500).json({ message: "Error creating post" });
