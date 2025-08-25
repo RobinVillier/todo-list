@@ -3,14 +3,7 @@
   "lists": [
     {
       "name": "Default",
-      "tasks": [
-        {
-          "title": "Title",
-          "description": "Description",
-          "date": "2025-08-25",
-          "done": false
-        }
-      ]
+      "tasks": []
     },
     {
       "name": "Custom",
@@ -18,14 +11,7 @@
     },
     {
       "name": "Work",
-      "tasks": [
-        {
-          "title": "BBsdofihesdfsd",
-          "description": "sdlfkefg",
-          "date": "2025-08-25",
-          "done": false
-        }
-      ]
+      "tasks": []
     }
   ],
   "active": []
