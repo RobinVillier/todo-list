@@ -33,6 +33,7 @@ listSelection.forEach(btn => {
     btn.addEventListener('click', function () {
         this.classList.toggle('active');
     });
+    btn.classList.add('active')
 });
 
 // Toggle Lists card visibility 

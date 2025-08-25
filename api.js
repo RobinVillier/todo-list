@@ -23,7 +23,7 @@ function writeData(data, path) {
 }
 
 app.get("/getLists", (req, res) => {
-    const settingsJson = readData("data/settings.json");
+    const settingsJson = readData("data/settings_work.json");
   
     if (!settingsJson) {
         return res.status(500).json({ error: "Tasks not loaded yet" });
@@ -34,7 +34,7 @@ app.get("/getLists", (req, res) => {
 
 // Add New Task
 app.post("/newTask", (req, res) => {
-    const path = "data/settings.json"
+    const path = "data/settings_work.json"
     const settingsJson = readData(path);
     const container = req.body.container
     
@@ -52,7 +52,7 @@ app.post("/newTask", (req, res) => {
 
 app.post("/updateTask", (req, res) => {
     const { listName, taskIndex, done } = req.body;
-    const path = "data/settings.json"
+    const path = "data/settings_work.json"
     const settingsJson = readData(path);
     
     // Find corresponding list
