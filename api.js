@@ -28,7 +28,7 @@ app.get("/getLists", (req, res) => {
     if (!settingsJson) {
         return res.status(500).json({ error: "Tasks not loaded yet" });
     }
-    
+
     res.json(settingsJson);
 });
 
@@ -42,12 +42,33 @@ app.post("/newTask", (req, res) => {
     list.tasks.push({
         "title": req.body.title,
         "description": req.body.description,
-        "date": new Date(),
+        "date": new Date().toISOString().split('T')[0],
         "done": false
     });
     
     writeData(settingsJson, path)
     res.json({success: true});
+});
+
+app.post("/updateTask", (req, res) => {
+    const { listName, taskIndex, done } = req.body;
+    const path = "data/settings.json"
+    const settingsJson = readData(path);
+    
+    // Find corresponding list
+    const list = settingsJson.lists.find(l => l.name === listName);
+    if (!list) return res.status(404).json({ error: "List not found" });
+    
+    // Find corresponding task
+    if (!list.tasks[taskIndex]) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+    
+    // Update State
+    list.tasks[taskIndex].done = done;
+    writeData(settingsJson, path);
+
+    res.json({ success: true });
 });
 
 app.listen(port, () => console.log(`API is running at http://localhost:${port}`));

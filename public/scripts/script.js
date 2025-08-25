@@ -25,9 +25,9 @@ selectionButtons.forEach(btn => {
 
 // Toggle the color of selected lists when selected
 const listSelection = document.querySelectorAll('li[class="listItem"]');
-if (listSelection.length > 0) {
-    document.getElementsByClassName("listItem")[0].classList.add("active");
-};
+// if (listSelection.length > 0) {
+//     document.getElementsByClassName("listItem")[0].classList.add("active");
+// };
 
 listSelection.forEach(btn => {
     btn.addEventListener('click', function () {
@@ -38,10 +38,6 @@ listSelection.forEach(btn => {
 // Toggle Lists card visibility 
 const listItems = document.querySelectorAll(".listItem");
 const taskContainers = document.querySelectorAll(".tasksContainer");
-
-taskContainers.forEach((card, index) => {
-	if (index !== 0) card.classList.add("hidden");
-});
 
 listItems.forEach(item => {
 	item.addEventListener("click", () => {
@@ -62,15 +58,11 @@ function closePopup() {
     document.getElementById("popup").classList.remove("pop");
 }
 
-
-// On sélectionne tous les boutons "newTask"
 const buttons = document.querySelectorAll(".newTaskBtn");
-
 buttons.forEach(button => {
 	button.addEventListener("click", (e) => {
 		const listName = button.dataset.name;
 		
-		// Change le titre de la popup
 		const title = document.querySelector("#popup h1");
 		title.textContent = `New Task in "${listName}"`;
 		
@@ -78,4 +70,19 @@ buttons.forEach(button => {
 
 		openPopup();
 	});
+});
+
+// Function for checkbox state for each task
+document.querySelectorAll(".taskCheckbox").forEach(checkbox => {
+    checkbox.addEventListener("change", async (e) => {
+        const listName = e.target.dataset.list;
+        const taskIndex = e.target.dataset.index;
+        const done = e.target.checked;
+
+        await fetch("/api/updateTask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ listName, taskIndex, done })
+        });
+    });
 });

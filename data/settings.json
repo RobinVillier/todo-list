@@ -5,33 +5,27 @@
       "name": "Default",
       "tasks": [
         {
-          "title": "Bonjour",
-          "description": "Oui Oui",
-          "date": "2025-08-25T11:13:44.141Z",
-          "done": false
-        },
-        {
-          "title": "fh",
-          "description": "kjghsdfes",
-          "date": "2025-08-25T11:21:36.361Z",
+          "title": "Title",
+          "description": "Description",
+          "date": "2025-08-25",
           "done": false
         }
       ]
     },
     {
       "name": "Custom",
-      "tasks": [
-        {
-          "title": "sdragrdsg",
-          "description": "sdgwer",
-          "date": "2025-08-25T11:21:44.296Z",
-          "done": false
-        }
-      ]
+      "tasks": []
     },
     {
       "name": "Work",
-      "tasks": []
+      "tasks": [
+        {
+          "title": "BBsdofihesdfsd",
+          "description": "sdlfkefg",
+          "date": "2025-08-25",
+          "done": false
+        }
+      ]
     }
   ],
   "active": []

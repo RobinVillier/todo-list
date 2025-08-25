@@ -36,6 +36,16 @@ app.post("/api/newTask", async (req, res) => {
     }
 });
 
+app.post("/api/updateTask", async (req, res) => {
+    try {
+        await axios.post(`${API_URL}/updateTask`, req.body);
+
+        res.redirect("/");
+    } catch (error) {
+        res.status(500).json({ message: "Error creating post" });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Backend server is running on http://localhost:${port}`);
