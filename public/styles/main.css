@@ -217,6 +217,10 @@ header {
     color: #fff;
 }
 
+.sortingButton:active {
+    background-color: hsl(0, 0%, 40%);
+}
+
 .sortingButton > p {
     font-size: 15px;
     font-weight: 550;
@@ -281,6 +285,10 @@ ul {
     color: #fff;
 }
 
+.listItem:active {
+    background-color: hsl(0, 0%, 40%);
+}
+
 /* BODY */
 .bodyContainer {
     display: grid;
@@ -343,6 +351,10 @@ ul {
     background-color: hsl(0, 0%, 35%);
 }
 
+.newTaskBtn:active {
+    background-color: hsl(0, 0%, 45%);
+}
+
 .newTaskBtn > img {
     width: 20px;
 }
@@ -398,4 +410,8 @@ ul {
 .active:hover {
     background-color: rgb(18, 86, 128);
     color: rgb(255, 255, 255);
+}
+
+.active:active {
+    background-color: rgb(43, 113, 156);
 }
