@@ -8,15 +8,22 @@
             Add a new task
         </button>
         <% list.tasks.forEach((task, index) => { %>
-            <div class="taskDiv">
-                <input 
-                    type="checkbox" 
-                    name="taskCheckbox"
-                    class="taskCheckbox" 
-                    data-list="<%= list.name %>" 
-                    data-index="<%= index %>" 
-                    <%= task.done ? 'checked' : '' %> 
-                >
+            <% if (list.tasks[index].done) { %>
+                <div class="taskDiv crossedText">
+            <% } else { %>
+                <div class="taskDiv">
+            <% } %>
+                <label class="checkbox-container">
+                    <input 
+                        type="checkbox" 
+                        name="taskCheckbox"
+                        class="taskCheckbox" 
+                        data-list="<%= list.name %>" 
+                        data-index="<%= index %>" 
+                        <%= task.done ? 'checked' : '' %> 
+                    >
+                    <span class="checkmark"></span>
+                </label>
                 <p class="taskTitle"><%= task.title %></p>
                 <p class="taskDate"><%= task.date %></p>
                 <p class="taskDescription"><%= task.description %></p>

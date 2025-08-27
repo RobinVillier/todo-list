@@ -77,6 +77,11 @@ document.querySelectorAll(".taskCheckbox").forEach(checkbox => {
         const taskIndex = e.target.dataset.index;
         const done = e.target.checked;
 
+        const taskDiv = e.target.closest(".taskDiv");
+        if (taskDiv) {
+            taskDiv.classList.toggle("crossedText");
+        };
+
         await fetch("/api/updateTask", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
