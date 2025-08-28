@@ -27,6 +27,18 @@
                 <p class="taskTitle"><%= task.title %></p>
                 <p class="taskDate"><%= task.date %></p>
                 <p class="taskDescription"><%= task.description %></p>
+                <a class="editButton" 
+                    href="/api/editTask/<%= list.name %>/<%= index %>"
+                    data-name="<%= list.name %>" 
+                    data-index="<%= index %>">
+                    <img src="/images/edit_icon.svg" alt="Edit Icon">
+                </a>
+                <a class="trashButton" 
+                    href="/api/deleteTask/<%= list.name %>/<%= index %>" 
+                    data-name="<%= list.name %>" 
+                    data-index="<%= index %>">
+                    <img src="/images/trash_icon.svg" alt="Trash Icon">
+                </a>
             </div>
         <% }) %>
     </div>

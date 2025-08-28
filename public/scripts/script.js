@@ -74,18 +74,42 @@ buttons.forEach(button => {
 document.querySelectorAll(".taskCheckbox").forEach(checkbox => {
     checkbox.addEventListener("change", async (e) => {
         const listName = e.target.dataset.list;
-        const taskIndex = e.target.dataset.index;
+        const id = e.target.dataset.index;
         const done = e.target.checked;
-        console.log("Updating:", listName, taskIndex, done);
+        
         const taskDiv = e.target.closest(".taskDiv");
         if (taskDiv) {
             taskDiv.classList.toggle("crossedText");
         }
 
-        await fetch(`/api/tasks/${listName}/${taskIndex}`, {
+        await fetch(`/api/tasks/${listName}/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ done })
         });
     });
 });
+
+// Fetch the delete method. 
+document.querySelectorAll(".trashButton").forEach(a => {
+    a.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const listName = a.dataset.name;
+        const id = a.dataset.index;
+        
+        try {
+            await fetch(`/api/deleteTask/${listName}/${id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" }
+            });
+
+            // Remove from DOM if successful
+            a.closest(".taskDiv").remove();
+
+        } catch (err) {
+            console.error("Delete failed", err);
+        }
+    });
+});
+

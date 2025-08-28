@@ -36,17 +36,26 @@ app.post("/api/newTask", async (req, res) => {
     }
 });
 
-app.patch("/api/tasks/:listName/:taskIndex", async (req, res) => {
+app.patch("/api/tasks/:listName/:id", async (req, res) => {
     try {
-        const { listName, taskIndex } = req.params;
+        const { listName, id } = req.params;
         const { done } = req.body;
 
-        await axios.patch(`${API_URL}/tasks/${listName}/${taskIndex}`, { done });
+        await axios.patch(`${API_URL}/tasks/${listName}/${id}`, { done });
 
-        res.json({ success: true });
+        res.redirect("/");
     } catch (error) {
         res.status(500).json({ message: "Error updating task state" });
     }
+});
+
+app.delete("/api/deleteTask/:listName/:id", async (req, res) => {
+    const { listName, id } = req.params;
+    
+    
+    await axios.delete(`${API_URL}/deleteTask/${listName}/${id}`);
+    
+    res.redirect("/");
 });
 
 app.listen(port, () => {

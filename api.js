@@ -9,6 +9,8 @@ const port = 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const path = "data/settings_work.json"
+
 
 // Read data from a given json path
 function readData(path) {
@@ -34,7 +36,6 @@ app.get("/getLists", (req, res) => {
 
 // Add New Task
 app.post("/newTask", (req, res) => {
-    const path = "data/settings_work.json"
     const settingsJson = readData(path);
     const container = req.body.container
     
@@ -50,10 +51,9 @@ app.post("/newTask", (req, res) => {
     res.json({success: true});
 });
 
-app.patch("/tasks/:listName/:taskIndex", (req, res) => {
-    const { listName, taskIndex } = req.params;
+app.patch("/tasks/:listName/:id", (req, res) => {
+    const { listName, id } = req.params;
     const { done } = req.body;
-    const path = "data/settings_work.json";
     const settingsJson = readData(path);
 
     // Find corresponding list
@@ -61,12 +61,32 @@ app.patch("/tasks/:listName/:taskIndex", (req, res) => {
     if (!list) return res.status(404).json({ error: "List not found" });
 
     // Find corresponding task
-    if (!list.tasks[taskIndex]) {
+    if (!list.tasks[id]) {
         return res.status(404).json({ error: "Task not found" });
     }
 
     // Update State
-    list.tasks[taskIndex].done = done;
+    list.tasks[id].done = done;
+    writeData(settingsJson, path);
+
+    res.json({ success: true });
+});
+
+app.delete("/deleteTask/:listName/:id", (req, res) => {
+    const { listName, id } = req.params;
+    const settingsJson = readData(path);
+
+    // Find corresponding list
+    const list = settingsJson.lists.find(l => l.name === listName);
+    if (!list) return res.status(404).json({ error: "List not found" });
+
+    // Find corresponding task
+    if (!list.tasks[id]) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+
+    list.tasks.splice(id, 1)
+    
     writeData(settingsJson, path);
 
     res.json({ success: true });
