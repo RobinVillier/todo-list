@@ -50,20 +50,21 @@ app.post("/newTask", (req, res) => {
     res.json({success: true});
 });
 
-app.post("/updateTask", (req, res) => {
-    const { listName, taskIndex, done } = req.body;
-    const path = "data/settings_work.json"
+app.patch("/tasks/:listName/:taskIndex", (req, res) => {
+    const { listName, taskIndex } = req.params;
+    const { done } = req.body;
+    const path = "data/settings_work.json";
     const settingsJson = readData(path);
-    
+
     // Find corresponding list
     const list = settingsJson.lists.find(l => l.name === listName);
     if (!list) return res.status(404).json({ error: "List not found" });
-    
+
     // Find corresponding task
     if (!list.tasks[taskIndex]) {
         return res.status(404).json({ error: "Task not found" });
     }
-    
+
     // Update State
     list.tasks[taskIndex].done = done;
     writeData(settingsJson, path);

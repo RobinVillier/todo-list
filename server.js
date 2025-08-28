@@ -36,16 +36,18 @@ app.post("/api/newTask", async (req, res) => {
     }
 });
 
-app.post("/api/updateTask", async (req, res) => {
+app.patch("/api/tasks/:listName/:taskIndex", async (req, res) => {
     try {
-        await axios.post(`${API_URL}/updateTask`, req.body);
+        const { listName, taskIndex } = req.params;
+        const { done } = req.body;
 
-        res.redirect("/");
+        await axios.patch(`${API_URL}/tasks/${listName}/${taskIndex}`, { done });
+
+        res.json({ success: true });
     } catch (error) {
-        res.status(500).json({ message: "Error creating post" });
+        res.status(500).json({ message: "Error updating task state" });
     }
 });
-
 
 app.listen(port, () => {
     console.log(`Backend server is running on http://localhost:${port}`);

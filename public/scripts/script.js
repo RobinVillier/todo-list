@@ -76,16 +76,16 @@ document.querySelectorAll(".taskCheckbox").forEach(checkbox => {
         const listName = e.target.dataset.list;
         const taskIndex = e.target.dataset.index;
         const done = e.target.checked;
-
+        console.log("Updating:", listName, taskIndex, done);
         const taskDiv = e.target.closest(".taskDiv");
         if (taskDiv) {
             taskDiv.classList.toggle("crossedText");
-        };
+        }
 
-        await fetch("/api/updateTask", {
-            method: "POST",
+        await fetch(`/api/tasks/${listName}/${taskIndex}`, {
+            method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ listName, taskIndex, done })
+            body: JSON.stringify({ done })
         });
     });
 });
