@@ -47,7 +47,7 @@ listItems.forEach(item => {
 	});
 });
 
-// Open PopUp from Lists
+// Open/Close PopUp
 function openPopup() {
     document.getElementById("popup").classList.add("pop");
 }
@@ -56,21 +56,73 @@ function closePopup() {
     document.getElementById("popup").classList.remove("pop");
 }
 
-const buttons = document.querySelectorAll(".newTaskBtn");
-buttons.forEach(button => {
-	button.addEventListener("click", (e) => {
-		const listName = button.dataset.name;
-		
-		const title = document.querySelector("#popup h1");
-		title.textContent = `New Task in "${listName}"`;
-		
-        document.getElementById("taskContainer").value = listName;
+// Modify content (title & button)
+function modifyPopUpContent(cardTitle, buttonContent) {
+    document.querySelector("#popup h1").textContent = cardTitle;
+    document.querySelector("#popup .validation").textContent = buttonContent;
+}
 
-		openPopup();
-	});
+// Create New Task
+document.querySelectorAll(".newTaskBtn").forEach(button => {
+    button.addEventListener("click", () => {
+        const listName = button.dataset.name;
+        modifyPopUpContent(`New Task in "${listName}"`, "Create New Task");
+
+        document.getElementById("taskContainer").value = listName;
+        document.getElementById("taskId").value = "";
+        document.getElementById("titleInput").value = "";
+        document.getElementById("descriptionInput").value = "";
+
+        openPopup();
+    });
 });
 
-// Function for checkbox state for each task
+// Edit Task
+document.querySelectorAll(".editButton").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const taskData = {
+            id: btn.dataset.index,
+            title: btn.dataset.title,
+            description: btn.dataset.description,
+            container: btn.dataset.name
+        };
+        
+        modifyPopUpContent(`Edit Task in "${taskData.container}"`, "Save Changes");
+
+        document.getElementById("taskContainer").value = taskData.container;
+        document.getElementById("titleInput").value = taskData.title;
+        document.getElementById("descriptionInput").value = taskData.description;
+        document.getElementById("taskId").value = taskData.id;
+
+        openPopup();
+    });
+});
+
+// Submit form (create or edit ?)
+const form = document.getElementById("newPostForm");
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    const taskId = formData.get("taskId");
+    const taskContainer = formData.get("container");
+    
+    const url = taskId ? `/api/editTask/${taskContainer}/${taskId}` : "/api/newTask";
+    
+    await fetch(url, {
+        method: taskId ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    closePopup();
+    window.location.reload();
+});
+
+
+// Checkbox state for each task update
 document.querySelectorAll(".taskCheckbox").forEach(checkbox => {
     checkbox.addEventListener("change", async (e) => {
         const listName = e.target.dataset.list;
@@ -100,13 +152,10 @@ document.querySelectorAll(".trashButton").forEach(a => {
         
         try {
             await fetch(`/api/deleteTask/${listName}/${id}`, {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" }
+                method: "DELETE"
             });
 
-            // Remove from DOM if successful
             a.closest(".taskDiv").remove();
-
         } catch (err) {
             console.error("Delete failed", err);
         }

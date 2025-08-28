@@ -28,9 +28,10 @@
                 <p class="taskDate"><%= task.date %></p>
                 <p class="taskDescription"><%= task.description %></p>
                 <a class="editButton" 
-                    href="/api/editTask/<%= list.name %>/<%= index %>"
                     data-name="<%= list.name %>" 
-                    data-index="<%= index %>">
+                    data-index="<%= index %>"
+                    data-title="<%= list.tasks[index].title %>"
+                    data-description="<%= list.tasks[index].description %>">
                     <img src="/images/edit_icon.svg" alt="Edit Icon">
                 </a>
                 <a class="trashButton" 

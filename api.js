@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import fs from "fs";
+import { log } from "console";
 
 const app = express();
 const port = 4000;
@@ -10,7 +11,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const path = "data/settings_work.json"
-
 
 // Read data from a given json path
 function readData(path) {
@@ -35,7 +35,7 @@ app.get("/getLists", (req, res) => {
 });
 
 // Add New Task
-app.post("/newTask", (req, res) => {
+app.post("/newTask", (req, res) => {    
     const settingsJson = readData(path);
     const container = req.body.container
     
@@ -67,6 +67,26 @@ app.patch("/tasks/:listName/:id", (req, res) => {
 
     // Update State
     list.tasks[id].done = done;
+    writeData(settingsJson, path);
+
+    res.json({ success: true });
+});
+
+app.patch("/editTask/:listName/:id", (req, res) => {
+    const { listName, id } = req.params;
+    const settingsJson = readData(path);
+    
+    // Find corresponding list
+    const list = settingsJson.lists.find(l => l.name === listName);
+    if (!list) return res.status(404).json({ error: "List not found" });
+
+    // Find corresponding task
+    if (!list.tasks[id]) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+    
+    list.tasks[id].title = req.body.title;
+    list.tasks[id].description = req.body.description;
     writeData(settingsJson, path);
 
     res.json({ success: true });

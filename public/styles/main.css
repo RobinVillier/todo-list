@@ -294,12 +294,12 @@ ul {
 .bodyContainer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-rows: auto;
     justify-items: center;
     gap: 20px;
     margin-bottom: 20px;
     
     width: 70%;
-    height: 100%;
 }
 
 .tasksContainer {

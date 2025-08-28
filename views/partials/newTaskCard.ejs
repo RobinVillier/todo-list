@@ -1,12 +1,13 @@
 <div id="popup" class="bodyNewTaskPopUp">
     <div id="newTaskCard">
-        <form id="newPostForm" method="post" action="/api/newTask">
-            <h1 id="formTitle">TITLE</h1>
+        <form id="newPostForm">
+            <input type="hidden" name="taskId" id="taskId">
             <input type="hidden" name="container" id="taskContainer">
+            <h1 id="formTitle">TITLE</h1>
 
             <input id="titleInput" type="text" name="title" placeholder="Title" required>
-            <textarea id="descriptionInput" name="description" placeholder="Description" rows="5"></textarea>
-            <button type="submit">Create New Task</button>
+            <input id="descriptionInput" name="description" placeholder="Description">
+            <button class="validation" type="submit">Create New Task</button>
             <button type="button" onclick="closePopup()">Cancel</button>
         </form>
     </div>

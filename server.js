@@ -29,7 +29,7 @@ app.get("/", async (req, res) => {
 app.post("/api/newTask", async (req, res) => {
     try {
         await axios.post(`${API_URL}/newTask`, req.body);
-
+        
         res.redirect("/");
     } catch (error) {
         res.status(500).json({ message: "Error creating post" });
@@ -49,10 +49,19 @@ app.patch("/api/tasks/:listName/:id", async (req, res) => {
     }
 });
 
+app.patch("/api/editTask/:listName/:id", async (req, res) => {
+    try {
+        const { listName, id } = req.params;
+        await axios.patch(`${API_URL}/editTask/${listName}/${id}`, req.body);
+        
+        res.redirect("/");
+    } catch (error) {
+        res.status(500).json({ message: "Error editig task" });
+    }
+});
+
 app.delete("/api/deleteTask/:listName/:id", async (req, res) => {
     const { listName, id } = req.params;
-    
-    
     await axios.delete(`${API_URL}/deleteTask/${listName}/${id}`);
     
     res.redirect("/");
