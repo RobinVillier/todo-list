@@ -1,13 +1,7 @@
 # 📝 To-Do List App
 
 ![GitHub
-license](https://img.shields.io/github/license/RobinVillier/todo-list)\
-![GitHub
-issues](https://img.shields.io/github/issues/RobinVillier/todo-list)\
-![GitHub
-stars](https://img.shields.io/github/stars/RobinVillier/todo-list)\
-![GitHub
-forks](https://img.shields.io/github/forks/RobinVillier/todo-list)
+issues](https://img.shields.io/github/issues/RobinVillier/todo-list)
 
 A modern and minimal **to-do list web app** for managing multiple lists
 and tasks with ease.
