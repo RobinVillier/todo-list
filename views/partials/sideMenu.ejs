@@ -1,8 +1,4 @@
 <div id="sideMenu" class="open">
-    <!-- <div class="createButton">
-        <img src="/images/plus_icon.svg" alt="Plus Icon" id="plusIcon">
-        <p>Create</p>
-    </div> -->
     <div class="sortingButton">
         <img src="/images/task_icon.svg" alt="Task Icon">
         <p>All Lists</p>
@@ -17,10 +13,16 @@
         <img src="/images/plus_icon.svg" alt="Plus Icon" id="plusIcon">
     </div>
     <ul>
-        <% lists.forEach(element => { %>
-            <li class="listItem" data-name="<%= element.name %>">
-                <p><%= element.name %></p>
-            </li>
+        <% lists.forEach(list => { %>
+            <% if (list.active) { %>
+                <li class="listItem active" data-name="<%= list.name %>">
+                    <p><%= list.name %></p>
+                </li>
+            <% } else { %>
+                <li class="listItem" data-name="<%= list.name %>">
+                    <p><%= list.name %></p>
+                </li>
+            <% } %>
         <% }) %>
     </ul>
 </div>

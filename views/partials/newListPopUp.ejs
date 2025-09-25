@@ -1,0 +1,10 @@
+<div id="listPopup" class="bodyNewTaskPopUp">
+    <div id="newTaskCard">
+        <form id="listPostForm" method="post" action="/api/newList">
+            <h1 id="formTitle">Create New List</h1>
+            <input id="nameInput" type="text" name="name" placeholder="Name" required>
+            <button class="validation" type="submit">Create New List</button>
+            <button type="button" onclick="closePopup(type='list')">Cancel</button>
+        </form>
+    </div>
+</div>

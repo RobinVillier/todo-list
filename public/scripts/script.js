@@ -23,43 +23,51 @@ selectionButtons.forEach(btn => {
     });
 });
 
-// Toggle the color of selected lists when selected
-const listSelection = document.querySelectorAll('li[class="listItem"]');
-
-listSelection.forEach(btn => {
-    btn.addEventListener('click', function () {
-        this.classList.toggle('active');
-    });
-    btn.classList.add('active')
-});
-
+// Toggle the color of button list selection when selected
 // Toggle Lists card visibility 
 const listItems = document.querySelectorAll(".listItem");
-const taskContainers = document.querySelectorAll(".tasksContainer");
 
 listItems.forEach(item => {
-	item.addEventListener("click", () => {
+    
+	item.addEventListener("click", async () => {
+        item.classList.toggle('active');
+        const active = item.classList?.contains('active') || false;
+
 		const name = item.getAttribute("data-name");
 		const target = document.querySelector(`.tasksContainer[data-name="${name}"]`);
 		if (target) {
 			target.classList.toggle("hidden");
-		}
-	});
+		};
+
+        await fetch(`/api/editStatus/${item.dataset.name}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ active })
+        });
+    });
 });
 
+// New list PopUp
+
+const createListBtn = document.getElementById("plusIcon");
+createListBtn.addEventListener("click", () => {
+    openPopup(type="list")
+});
+
+
 // Open/Close PopUp
-function openPopup() {
-    document.getElementById("popup").classList.add("pop");
+function openPopup(type) {
+    document.getElementById(`${type}Popup`).classList.add("pop");
 }
 
-function closePopup() {
-    document.getElementById("popup").classList.remove("pop");
+function closePopup(type) {
+    document.getElementById(`${type}Popup`).classList.remove("pop");
 }
 
 // Modify content (title & button)
 function modifyPopUpContent(cardTitle, buttonContent) {
-    document.querySelector("#popup h1").textContent = cardTitle;
-    document.querySelector("#popup .validation").textContent = buttonContent;
+    document.querySelector("#taskPopup h1").textContent = cardTitle;
+    document.querySelector("#taskPopup .validation").textContent = buttonContent;
 }
 
 // Create New Task
@@ -73,7 +81,7 @@ document.querySelectorAll(".newTaskBtn").forEach(button => {
         document.getElementById("titleInput").value = "";
         document.getElementById("descriptionInput").value = "";
 
-        openPopup();
+        openPopup(type="task");
     });
 });
 
@@ -94,11 +102,11 @@ document.querySelectorAll(".editButton").forEach(btn => {
         document.getElementById("descriptionInput").value = taskData.description;
         document.getElementById("taskId").value = taskData.id;
 
-        openPopup();
+        openPopup(type="task");
     });
 });
 
-// Submit form (create or edit ?)
+// Submit form - create or edit task ?
 const form = document.getElementById("newPostForm");
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -117,10 +125,9 @@ form.addEventListener("submit", async (e) => {
         body: JSON.stringify(data)
     });
 
-    closePopup();
+    closePopup(type="task");
     window.location.reload();
 });
-
 
 // Checkbox state for each task update
 document.querySelectorAll(".taskCheckbox").forEach(checkbox => {

@@ -3,16 +3,18 @@
   "lists": [
     {
       "name": "Default",
-      "tasks": []
+      "tasks": [],
+      "active": true
     },
     {
       "name": "Custom",
-      "tasks": []
+      "tasks": [],
+      "active": true
     },
     {
       "name": "Work",
-      "tasks": []
+      "tasks": [],
+      "active": true
     }
-  ],
-  "active": []
+  ]
 }

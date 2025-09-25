@@ -1,5 +1,9 @@
 <% lists.forEach(list => { %>
-    <div class="tasksContainer" id="<%= list.name %>Tasks" data-name="<%= list.name %>">
+    <% if (list.active) { %>
+        <div class="tasksContainer" id="<%= list.name %>Tasks" data-name="<%= list.name %>">
+    <% } else { %>
+        <div class="tasksContainer hidden" id="<%= list.name %>Tasks" data-name="<%= list.name %>">
+    <% } %>
         <div class="cardHeader">
             <p><%= list.name %></p>
         </div>

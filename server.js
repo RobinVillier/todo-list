@@ -25,6 +25,17 @@ app.get("/", async (req, res) => {
     
 });
 
+// Route to new list pop up
+app.post("/api/newList", async (req, res) => {
+    try {
+        await axios.post(`${API_URL}/newList`, req.body);
+        
+        res.redirect("/");
+    } catch (error) {
+        res.status(500).json({ message: "Error creating post" });
+    }
+});
+
 // Route to new task pop up
 app.post("/api/newTask", async (req, res) => {
     try {
@@ -46,6 +57,17 @@ app.patch("/api/tasks/:listName/:id", async (req, res) => {
         res.redirect("/");
     } catch (error) {
         res.status(500).json({ message: "Error updating task state" });
+    }
+});
+
+app.patch("/api/editStatus/:listName", async (req, res) => {
+    try {
+        const { listName } = req.params;
+        await axios.patch(`${API_URL}/editStatus/${listName}`, req.body);
+        
+        res.redirect("/");
+    } catch (error) {
+        res.status(500).json({ message: "Error editig task" });
     }
 });
 

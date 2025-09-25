@@ -10,22 +10,23 @@ const port = 4000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const path = "data/settings_work.json"
+const path = "data/settings_work.json";
 
 // Read data from a given json path
-function readData(path) {
+function readData() {
     if (!fs.existsSync(path)) return [];
     const raw = fs.readFileSync(path, "utf8");
     return JSON.parse(raw);
-}
+};
 
 // Write given data to a given json path
-function writeData(data, path) {
+function writeData(data) {
     fs.writeFileSync(path, JSON.stringify(data, null, 2));
-}
+};
 
 app.get("/getLists", (req, res) => {
-    const settingsJson = readData("data/settings_work.json");
+    const settingsJson = readData();
+    
   
     if (!settingsJson) {
         return res.status(500).json({ error: "Tasks not loaded yet" });
@@ -34,9 +35,22 @@ app.get("/getLists", (req, res) => {
     res.json(settingsJson);
 });
 
+app.post("/newList", (req, res) => {
+    const settingsJson = readData();
+
+    settingsJson.lists.push({
+      "name": req.body.name,
+      "tasks": [],
+      "active": true
+    });
+    
+    writeData(settingsJson);
+    res.json({success: true});
+});
+
 // Add New Task
-app.post("/newTask", (req, res) => {    
-    const settingsJson = readData(path);
+app.post("/newTask", (req, res) => {
+    const settingsJson = readData();
     const container = req.body.container
     
     const list = settingsJson.lists.find(l => l.name.toLowerCase() === container.toLowerCase());
@@ -47,14 +61,14 @@ app.post("/newTask", (req, res) => {
         "done": false
     });
     
-    writeData(settingsJson, path)
+    writeData(settingsJson)
     res.json({success: true});
 });
 
 app.patch("/tasks/:listName/:id", (req, res) => {
     const { listName, id } = req.params;
     const { done } = req.body;
-    const settingsJson = readData(path);
+    const settingsJson = readData();
 
     // Find corresponding list
     const list = settingsJson.lists.find(l => l.name === listName);
@@ -67,14 +81,14 @@ app.patch("/tasks/:listName/:id", (req, res) => {
 
     // Update State
     list.tasks[id].done = done;
-    writeData(settingsJson, path);
+    writeData(settingsJson);
 
     res.json({ success: true });
 });
 
 app.patch("/editTask/:listName/:id", (req, res) => {
     const { listName, id } = req.params;
-    const settingsJson = readData(path);
+    const settingsJson = readData();
     
     // Find corresponding list
     const list = settingsJson.lists.find(l => l.name === listName);
@@ -87,14 +101,26 @@ app.patch("/editTask/:listName/:id", (req, res) => {
     
     list.tasks[id].title = req.body.title;
     list.tasks[id].description = req.body.description;
-    writeData(settingsJson, path);
+    writeData(settingsJson);
 
+    res.json({ success: true });
+});
+
+app.patch("/editStatus/:listName", (req, res) => {
+    const listName = req.params.listName
+    
+    const settingsJson = readData();
+
+    const list = settingsJson.lists.find(l => l.name === listName);
+    list.active = req.body.active
+    
+    writeData(settingsJson);
     res.json({ success: true });
 });
 
 app.delete("/deleteTask/:listName/:id", (req, res) => {
     const { listName, id } = req.params;
-    const settingsJson = readData(path);
+    const settingsJson = readData();
 
     // Find corresponding list
     const list = settingsJson.lists.find(l => l.name === listName);
@@ -107,7 +133,7 @@ app.delete("/deleteTask/:listName/:id", (req, res) => {
 
     list.tasks.splice(id, 1)
     
-    writeData(settingsJson, path);
+    writeData(settingsJson);
 
     res.json({ success: true });
 });
